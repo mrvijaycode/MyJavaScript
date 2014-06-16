@@ -19,6 +19,7 @@ function loadContent() {
 			alert(xData.responseText);
 
 			if (xData.status == 200) {
+			debugger;
 				var myJson = $(xData.responseXML).SPFilterNode("z:row").SPXmlToJson({
 						mapping : {
 							ows_ID : {
