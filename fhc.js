@@ -1,6 +1,11 @@
 $(document).ready(function () {
 	alert('welcome to new concept');
-	loadContent();
+	
+	$.ajax({
+		success : function () {
+			loadContent();
+		}
+	});
 });
 
 function loadContent() {
@@ -16,10 +21,10 @@ function loadContent() {
 		//CAMLRowLimit : 1,
 		completefunc : function (xData, Status) {
 
-			alert(xData.responseText);
+			//alert(xData.responseText);
 
 			if (xData.status == 200) {
-			debugger;
+				//debugger;
 				var myJson = $(xData.responseXML).SPFilterNode("z:row").SPXmlToJson({
 						mapping : {
 							ows_ID : {
