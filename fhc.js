@@ -1,6 +1,6 @@
 $(document).ready(function () {
-	alert('welcome to new concept');
-	
+	//alert('welcome to new concept file');
+
 	$.ajax({
 		success : function () {
 			loadContent();
@@ -9,7 +9,7 @@ $(document).ready(function () {
 });
 
 function loadContent() {
-
+	var myJson = [];
 	$().SPServices({
 		operation : "GetListItems", //Method name
 		async : false,
@@ -25,23 +25,28 @@ function loadContent() {
 
 			if (xData.status == 200) {
 				//debugger;
-				var myJson = $(xData.responseXML).SPFilterNode("z:row").SPXmlToJson({
-						mapping : {
-							ows_ID : {
-								mappedName : "ID",
-								objectType : "Counter"
-							},
-							ows_Title : {
-								mappedName : "Title",
-								objectType : "Text"
-							}
-						}, // name, mappedName, objectType
+				myJson = $(xData.responseXML).SPFilterNode("z:row").SPXmlToJson({
+						mapping : {}, // name, mappedName, objectType
 						includeAllAttrs : true
 					});
-				alert(myJson);
+				//alert(myJson);
 			} else {
 				alert(xData.status);
 			}
 		}
 	});
+
+	//debugger;
+
+	var listItemInfo = '<table>';
+
+	for (var i = 0; i < myJson.length; i++) {
+		listItemInfo += "<tr>";
+		listItemInfo += "<td>" + myJson[i].Title + "</td>";
+		listItemInfo += "</tr>";
+	}
+
+	listItemInfo += "</table>";
+
+	$('#divHtml').html(listItemInfo);
 }
